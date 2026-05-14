@@ -1,4 +1,4 @@
-﻿#include <muduo/net/EventLoop.h>
+#include <muduo/net/EventLoop.h>
 #include <muduo/net/TcpServer.h>
 #include <muduo/net/InetAddress.h>
 #include <muduo/base/Logging.h>
@@ -7,7 +7,7 @@
 #include "protobuf_codec.h"
 #include "chat_service.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     muduo::Logger::setLogLevel(muduo::Logger::INFO);
     LOG_INFO << "Chat server starting...";
