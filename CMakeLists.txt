@@ -46,3 +46,17 @@ target_link_libraries(test_client
   pthread
   ${Protobuf_LIBRARIES}
 )
+
+# 交互式聊天客户端
+add_executable(chat_client
+  src/chat_client.cc
+  src/protobuf_codec.cc
+  ${PROTO_SRCS}
+)
+
+target_link_libraries(chat_client
+  muduo_net
+  muduo_base
+  pthread
+  ${Protobuf_LIBRARIES}
+)
