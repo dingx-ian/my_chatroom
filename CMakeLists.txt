@@ -3,15 +3,32 @@ project(ChatServer)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# muduo 头文件路径
-include_directories(/usr/include)
+find_package(Protobuf REQUIRED)
 
-# muduo 库文件路径
+include_directories(
+  ${Protobuf_INCLUDE_DIRS}
+  /usr/include
+  ${CMAKE_CURRENT_BINARY_DIR}
+)
 link_directories(/usr/local/lib)
 
-# 编译可执行文件
-add_executable(chat_server src/server.cc)
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS proto/chat.proto)
 
-# 链接 muduo 库和 pthread
-target_link_libraries(chat_server muduo_net muduo_base pthread)
+set(SERVER_SRCS
+  src/server.cc
+  src/protobuf_codec.cc
+  src/chat_service.cc
+  ${PROTO_SRCS}
+)
+
+add_executable(chat_server ${SERVER_SRCS})
+
+target_link_libraries(chat_server
+  muduo_net
+  muduo_base
+  pthread
+  ${Protobuf_LIBRARIES}
+)

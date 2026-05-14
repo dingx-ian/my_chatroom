@@ -1,0 +1,7 @@
+* text=auto
+*.cc text
+*.cpp text
+*.h text
+*.proto text
+*.md text
+build/ export-ignore

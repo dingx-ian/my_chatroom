@@ -1,0 +1,21 @@
+syntax = "proto3";
+package chatroom;
+
+option optimize_for = SPEED;
+
+enum MsgType {
+  UNKNOWN = 0;
+  LOGIN = 1;
+  LOGOUT = 2;
+  CHAT_ALL = 3;
+  CHAT_PRIVATE = 4;
+  HEARTBEAT = 5;
+}
+
+message ChatMessage {
+  MsgType type = 1;
+  string from = 2;
+  string to = 3;
+  string content = 4;
+  int64 timestamp = 5;
+}
